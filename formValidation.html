@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation</title>
+    <style>
+      .middle {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <form class="middle" onsubmit="finalCheck()">
+      <h2>Please fill out your details</h2>
+
+      <div>
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
+          onchange="validateUsername()"
+        />
+        <span id="errorUsername"></span>
+      </div>
+
+      <div>
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          onchange="validatePassword()"
+        />
+        <span id="errorPassword"></span>
+      </div>
+
+      <input type="submit" value="Submit" />
+    </form>
+
+    <script>
+      let username = document.getElementById("username");
+      let errorUsername = document.getElementById("errorUsername");
+
+      let password = document.getElementById("password");
+      let errorPassword = document.getElementById("errorPassword");
+
+      function validateUsername() {
+        let expUsername = /^[a-zA-Z][a-zA-Z0-9]{2,}$/;
+        console.log(username.value);
+
+        if (!expUsername.test(username.value)) {
+          errorUsername.textContent =
+            "Username must start with an alphabet and atleast of 3 chars";
+          errorUsername.style.color = "red";
+          return -1;
+        } else {
+          errorUsername.textContent = "";
+          return 1;
+        }
+      }
+
+      function validatePassword() {
+        let expPassword = /^[a-zA-Z0-9 _!@]{8,}$/;
+        console.log(password.value);
+
+        if (!expPassword.test(password.value)) {
+          errorPassword.textContent =
+            "Password can be alpha-numeric and may contain !, @ and atleast of 8 chars";
+          errorPassword.style.color = "red";
+          return -1;
+        } else {
+          errorPassword.textContent = "";
+          return 1;
+        }
+      }
+
+      function finalCheck() {
+        if (validateUsername() == 1 && validatePassword() == 1) {
+          alert("Very good very nice !");
+        } else alert("Enter the details properly!");
+      }
+    </script>
+  </body>
+</html>
